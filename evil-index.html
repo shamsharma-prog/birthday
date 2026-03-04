@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😈 Birthday Escape Room - EVIL MODE 😈</title>
+    <link rel="stylesheet" href="evil-style.css">
+</head>
+<body>
+    <!-- Hidden clues scattered throughout (for inspect element hunters) -->
+    <!-- Gate 1 Hint: The first cipher uses ROT13. The second uses ROT7. Apply both in sequence for maximum confusion. -->
+    <!-- Gate 2 Hint: The riddle is intentionally vague. It could be multiple things. Only ONE answer unlocks the gate. -->
+    <!-- Gate 3 Hint: Sometimes the console lies. Sometimes it tells the truth. Which one is it this time? -->
+    <!-- Gate 4 Hint: Base64 is just the first layer. What comes after the decode? -->
+
+    <div class="container">
+        <!-- Animated Background -->
+        <div class="sparkles-container">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>😈 Birthday Escape: Evil & Cute 💕</h1>
+            <p class="subtitle">Puzzles so twisted, they're adorable. Beware the cute chaos...</p>
+            <div class="warning-banner">⚠️ EXPERT MODE: These puzzles will deceive you. Trust nothing. Inspect everything. ⚠️</div>
+            <div class="progress-bar">
+                <span class="progress-text">Gate <span id="progress-current">1</span> / 4</span>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stage 1: Riddle (Max Protein Bar) -->
+        <section class="stage stage-1" id="stage-1">
+            <div class="stage-card">
+                <div class="stage-header">
+                    <h2>🧩 Gate 1: The Deceiver's Riddle</h2>
+                    <div class="gate-indicator">Gate 1</div>
+                </div>
+                <div class="stage-content">
+                    <p class="riddle-text">
+                        "I am the bodybuilder's precious lie,<br>
+                        Wrapped in foil, with a deceiving spy.<br>
+                        I promise protein, but hide my sin,<br>
+                        Sugar masked as gains from within.<br>
+                        Not a real meal, yet gym bags can't resist,<br>
+                        A candy bar's cousin, by whose name am I missed?<br>
+                        I claim to be maximum, yet minimum you'll find,<br>
+                        A bar of empty promises... what brand am I designed?"
+                    </p>
+                    <p class="helper-text">A twisted tribute to convenience over truth. One name. Two words. What is it?</p>
+                    <span style="display:none;">Hint: It's a chocolate bar disguised as fitness. Check the source code for more clues!</span>
+                    <!-- INSPECT ELEMENT COMPONENT: Open DevTools → Elements and search for the gym bag. -->
+                    <p class="inspect-instruction">Tip: Some secrets only reveal themselves in the DOM — try inspecting this card.</p>
+                    <!-- Hidden DOM element intended to be discovered via Inspect Element -->
+                    <div id="gym-bag" data-hidden-hint="Look for MAX in sports nutrition brands" style="color: transparent;">
+                        MAX PROTEIN BAR
+                    </div>
+                </div>
+                <div class="input-section">
+                    <input type="text" id="answer-1" class="answer-input" placeholder="What is the true answer?" autocomplete="off" data-hint="MAX PROTEIN BAR: The brand that claims maximum gains but hides maximum sugar">
+                    <button class="unlock-btn" onclick="checkAnswer(1)" data-riddle="Notice me">🔓 Unlock Gate</button>
+                </div>
+                <div class="error-message" id="error-1"></div>
+                <div class="unlock-timer" id="timer-1"></div>
+            </div>
+        </section>
+
+        <!-- Stage 2: Drag-and-Drop Puzzle -->
+        <section class="stage stage-2 hidden" id="stage-2">
+            <div class="stage-card">
+                <div class="stage-header">
+                    <h2>🎁 Gate 2: Unscramble the Gifts</h2>
+                    <div class="gate-indicator">Gate 2</div>
+                </div>
+                <div class="stage-content">
+                    <p class="puzzle-hint">Drag each scrambled word to match its unscrambled partner.</p>
+                    <p class="helper-text">Match all 4 words correctly to proceed. These gifts await...</p>
+                </div>
+                <div class="drag-and-drop-container">
+                    <div class="draggable-items">
+                        <p style="color: #ff69b4; margin-bottom: 10px; font-weight: bold;">Click scrambled words (personal to you!):</p>
+                        <div class="scrambled-item" onclick="selectScrambled(this)" data-word="movie">EIVOM</div>
+                        <div class="scrambled-item" onclick="selectScrambled(this)" data-word="kainchi">IHCNIAKD MAHD</div>
+                        <div class="scrambled-item" onclick="selectScrambled(this)" data-word="gymming">GNINMIGYG</div>
+                        <div class="scrambled-item" onclick="selectScrambled(this)" data-word="bali">ILAB</div>
+                    </div>
+                    <div class="drop-zones">
+                        <p style="color: #ff69b4; margin-bottom: 10px; font-weight: bold;">Match to their meaning:</p>
+                        <div class="drop-zone" onclick="selectMatch(this)" data-target="movie">CINEMA</div>
+                        <div class="drop-zone" onclick="selectMatch(this)" data-target="kainchi">DEVOTION</div>
+                        <div class="drop-zone" onclick="selectMatch(this)" data-target="gymming">FITNESS</div>
+                        <div class="drop-zone" onclick="selectMatch(this)" data-target="bali">PARADISE</div>
+                    </div>
+                </div>
+                <div class="input-section">
+                    <button class="unlock-btn" onclick="checkAnswer(2)">🔓 Check Matches</button>
+                </div>
+                <div class="error-message" id="error-2"></div>
+                <div class="unlock-timer" id="timer-2"></div>
+            </div>
+        </section>
+
+        <!-- Stage 3: Layered Encoding (Diet Coke) -->
+        <section class="stage stage-3 hidden" id="stage-3">
+            <div class="stage-card">
+                <div class="stage-header">
+                    <h2>🔤 Gate 3: The Infinity Encode</h2>
+                    <div class="gate-indicator">Gate 3</div>
+                </div>
+                <div class="stage-content">
+                    <p class="puzzle-hint">One encoding. Or two? Or three? Inception of codes...</p>
+                    <div class="base64-box">
+                        <code>WkdsaWEgQ29rZQ==</code>
+                    </div>
+                    <p class="helper-text">Base64 decodes to something. But is that the final answer?</p>
+                    <span style="display:none;">First decode: 'Zkllia Coke' - wait, that doesn't look right...</span>
+                </div>
+                <div class="input-section">
+                    <input type="text" id="answer-3" class="answer-input" placeholder="What is the final decoded secret?" autocomplete="off">
+                    <button class="unlock-btn" onclick="checkAnswer(3)">🔓 Unlock Gate</button>
+                </div>
+                <div class="error-message" id="error-3"></div>
+                <div class="unlock-timer" id="timer-3"></div>
+            </div>
+        </section>
+
+        <!-- Stage 4: Advanced System Design Terminal Challenge (Apple Watch - HARDEST) -->
+        <section class="stage stage-4 hidden" id="stage-4">
+            <div class="stage-card">
+                <div class="stage-header">
+                    <h2>⚙️ Gate 4: The Architect's Crucible</h2>
+                    <div class="gate-indicator">Gate 4</div>
+                </div>
+                <div class="stage-content">
+                    <p class="puzzle-hint">A true architect's test. Multiple subsystems. One ultimate answer.</p>
+                </div>
+                
+                <!-- Question 1: Functional Requirements -->
+                <div class="system-design-section">
+                    <div class="code-box terminal-design">
+                        <pre><code>[QUESTION 1: FUNCTIONAL REQUIREMENTS]
+A wearable device needs to:
+- Display real-time metrics on small OLED screen
+- Sync health data (heart rate, steps, sleep) to cloud
+- Operate 18+ hours without charging
+- Communicate via BLE to primary smartphone
+- Support multiple watch faces & apps
+- Price point: $300-$1000
+- Market leader in wearables
+
+What architectural pattern handles multiple
+concurrent BLE connections + cloud sync?
+
+A) Request-Reply Pattern
+B) Event-Driven Worker Pattern
+C) Pub-Sub with Message Queue
+D) RESTful API only</code></pre>
+                    </div>
+                    <input type="text" id="answer-4-1" class="system-input" placeholder="Your answer (A/B/C/D):" autocomplete="off">
+                    <span class="answer-status" id="status-4-1"></span>
+                </div>
+
+                <!-- Question 2: Latency & Performance -->
+                <div class="system-design-section">
+                    <div class="code-box terminal-design">
+                        <pre><code>[QUESTION 2: LATENCY REQUIREMENTS]
+For real-time health monitoring on wearable:
+- Heart rate updates needed every 5-10 seconds
+- Battery life is critical (18h target)
+- Data sync to cloud every 15-30 minutes
+- Network: unstable BLE + WiFi + LTE mix
+
+What's the optimal approach?
+
+A) Sync every sensor reading instantly
+B) Local buffer + batch sync + compression
+C) Cloud-side processing only
+D) Disable background sync for battery</code></pre>
+                    </div>
+                    <input type="text" id="answer-4-2" class="system-input" placeholder="Your answer (A/B/C/D):" autocomplete="off">
+                    <span class="answer-status" id="status-4-2"></span>
+                </div>
+
+                <!-- Question 3: Load Balancing & Scalability -->
+                <div class="system-design-section">
+                    <div class="code-box terminal-design">
+                        <pre><code>[QUESTION 3: SCALABILITY & LOAD BALANCING]
+Millions of devices syncing health data:
+- Peak: 100M concurrent connections
+- Data volume: 50GB/day incoming
+- Real-time dashboard requirements
+- Global distribution needed
+
+How to handle the cloud backend?
+
+A) Single monolithic server
+B) Load balancer + microservices + distributed cache
+C) Database replication only
+D) Edge computing on device, no cloud</code></pre>
+                    </div>
+                    <input type="text" id="answer-4-3" class="system-input" placeholder="Your answer (A/B/C/D):" autocomplete="off">
+                    <span class="answer-status" id="status-4-3"></span>
+                </div>
+
+                <!-- Final Answer Section (hidden until all correct) -->
+                <div id="final-answer-section" style="display:none;">
+                    <div class="code-box terminal-design">
+                        <pre><code>[ARCHITECTURE COMPLETE]
+You've designed the system. But what IS it?
+
+Specs Summary:
+✓ Event-driven wearable ecosystem
+✓ Optimized battery with batch sync
+✓ Global load-balanced cloud backend
+✓ Millions of concurrent users
+✓ Premium Apple ecosystem integration
+
+Name this product: "[Brand] [Body Part]"</code></pre>
+                    </div>
+                    <input type="text" id="answer-4" class="answer-input" placeholder="Enter the product name..." autocomplete="off">
+                </div>
+
+                <div class="input-section">
+                    <button class="unlock-btn" onclick="checkSystemDesignAnswers()">🏗️ Validate Architecture</button>
+                </div>
+                <div class="error-message" id="error-4"></div>
+                <div class="unlock-timer" id="timer-4"></div>
+            </div>
+        </section>
+
+        <!-- Final Reveal Screen (updated to match Normal Mode) -->
+        <section class="stage stage-final hidden" id="stage-final">
+            <div class="stage-card final-card">
+                <div class="celebration">
+                    <h2>🎉 All Gates Unlocked! 🎉</h2>
+                    <p class="reveal-subtitle">Your birthday gifts await...</p>
+                </div>
+                <div class="gifts-hints">
+                    <div class="gift-hint">
+                        <span class="gift-emoji">⌚</span>
+                        <p><strong>Something for the wrist</strong> that ticks away the precious moments of your day</p>
+                    </div>
+                    <div class="gift-hint">
+                        <span class="gift-emoji">💪</span>
+                        <p><strong>Something for strength</strong> to fuel your body and mind</p>
+                    </div>
+                    <div class="gift-hint">
+                        <span class="gift-emoji">🥤</span>
+                        <p><strong>Something fizzy</strong> stacked like a tower, perfect for refreshment</p>
+                    </div>
+                    <div class="gift-hint">
+                        <span class="gift-emoji">🍫</span>
+                        <p><strong>Something sweet</strong> with peanut magic, a timeless treat</p>
+                    </div>
+                </div>
+                <div class="final-message">
+                    <p>"Here's to celebrating you and all the joy you bring!"</p>
+                    <p class="signature">— With Love 💕</p>
+                </div>
+                <button class="restart-btn" onclick="restartGame()">🔄 Play Again</button>
+            </div>
+        </section>
+
+        <!-- Floating Skulls -->
+        <div class="hearts-container">
+            <div class="heart">💀</div>
+            <div class="heart">💀</div>
+            <div class="heart">💀</div>
+            <div class="heart">💀</div>
+            <div class="heart">💀</div>
+        </div>
+    </div>
+
+    <script src="evil-script.js"></script>
+</body>
+</html>
